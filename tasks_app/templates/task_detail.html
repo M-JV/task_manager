@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>{{ task.title }}</h2>
+    
+    <div class="task-details">
+        <p><strong>Description:</strong> {{ task.description }}</p>
+        <p><strong>Due Date:</strong> {{ task.due_date }}</p>
+        <p><strong>Status:</strong> {{ task.status }}</p>
+        <p><strong>Priority:</strong> {{ task.priority }}</p>
+        <p><strong>Category:</strong> {{ task.category.name }}</p>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+        {% if task.status != "Completed" %}
+            <form action="{% url 'mark_completed' task.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-complete">Mark as Complete</button>
+            </form>
+        {% else %}
+            <div></div>  <!-- Empty div for spacing when task completed -->
+        {% endif %}
+
+        <form action="{% url 'delete_task' task.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-delete">Delete Task</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasku  🍊</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        /* Primary Theme */
+        .navbar {
+            background-color: #FFCC66; /* Softer, golden yellow */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Moving the box-shadow here */
+        }
+        
+        /* Background Theme */
+        body {
+            background-color: #FFF4E6; /* Light peachy tone for a warm feel */
+            color: #333; /* Dark grey text for better readability */
+        }
+        
+        /* Adding padding and margin for white space */
+        .container {
+            padding: 20px;
+        }
+        
+        .navbar-nav .nav-item {
+            margin-right: 15px; /* Space between navbar items */
+        }
+        
+        /* buttons and links design */
+        .btn, .nav-link {
+            background-color: #5D9F92; /* Complementary soft teal */
+            color: white;
+            border-radius: 5px;
+        }
+        
+        /* Hover effect for nav links */
+        .nav-link:hover {
+            background-color: #4A8471;
+        }
+        
+        /* Badge styling */
+        .badge {
+            margin-right: 5px;
+        }
+        .badge.bg-pending {
+            background-color: #FFC107; /* Amber for pending */
+        }
+        .badge.bg-in {
+            background-color: #007BFF; /* Blue for in progress */
+        }
+        .badge.bg-completed {
+            background-color: #28A745; /* Green for completed */
+        }
+        .badge.bg-low {
+            background-color: #6C757D; /* Gray for low priority */
+        }
+        .badge.bg-medium {
+            background-color: #FD7E14; /* Orange for medium priority */
+        }
+        .badge.bg-high {
+            background-color: #DC3545; /* Red for high priority */
+        }
+        
+        /* hover effect for the cards */
+        .card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        /* additional button styling */
+        .btn {
+            background-color: #5D9F92; /* Base teal color */
+            color: white;
+            border-radius: 8px;
+            padding: 8px 16px;
+            border: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+        
+        /* Button hover effects */
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            background-color: #4A8471; /* Slightly darker on hover */
+        }
+        
+        /* Button active state */
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Special style for delete button */
+        .btn-delete {
+            background-color: #E76F51; /* Coral/orangey color for contrast */
+        }
+        
+        .btn-delete:hover {
+            background-color: #D65F41;
+        }
+        
+        /* Special style for complete button */
+        .btn-complete {
+            background-color: #2A9D8F; /* More vibrant teal */
+        }
+        
+        .btn-complete:hover {
+            background-color: #218777;
+        }
+        
+        /* Form style */
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: #5D9F92;
+            box-shadow: 0 0 0 0.25rem rgba(93, 159, 146, 0.25);
+        }
+        
+        .form-label {
+            font-weight: 500;
+            color: #444;
+            margin-bottom: 6px;
+        }
+        
+        /* spacing for the form card */
+        .card {
+            margin-top: 20px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">Tasku</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'tasks' %}">Tasks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'categories' %}">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'task_creation' %}">Create Task</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mt-4">
+        {% block content %}
+        <!-- This is where the content of each page will go -->
+        {% endblock %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0p7vZtptWqtU1QzLxV0lEo3p4U8GBFJ1g7w53mVA1c5coHF2" crossorigin="anonymous"></script>
+</body>
+</html>

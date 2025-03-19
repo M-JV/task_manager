@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Task List{% endblock %}
+
+{% block content %}
+    <h1>Task List</h1>
+    
+    <div class="row">
+        {% for task in tasks %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ task.title }}</h5>
+                        <p class="card-text">
+                            <span class="badge bg-{{ task.status|lower|cut:" " }}">{{ task.status }}</span>
+                            <span class="badge bg-{{ task.priority|lower }}">{{ task.priority }}</span>
+                            {% if task.due_date %}
+                            <div class="mt-2">Due: {{ task.due_date }}</div>
+                            {% endif %}
+                        </p>
+                        <a href="{% url 'task_detail' task.id %}" class="btn">View Details</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <p>No tasks present.</p>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <div class="mt-4">
+        <a href="{% url 'task_creation' %}" class="btn btn-complete">Create a New Task</a>
+    </div>
+{% endblock %}
