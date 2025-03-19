@@ -30,7 +30,7 @@ pip3 install django
 ### 2. Clone the Repository
 Clone the repository and navigate to the project folder:
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/M-JV/task_manager.git
 cd task_manager
 ```
 
